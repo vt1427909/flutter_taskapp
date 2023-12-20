@@ -1,5 +1,4 @@
 // import 'package:flutter/material.dart';
-// import 'package:task_aap/dashboard/add_task.dart';
 // import 'package:task_aap/dashboard/work_page.dart';
 //
 // class Dashboard extends StatefulWidget {
@@ -19,7 +18,8 @@
 //       bottomNavigationBar: NavigationBar(
 //         onDestinationSelected: (int index) {
 //           setState(() {
-//             currentPageIndex = index;
+//              currentPageIndex = index;
+//
 //           });
 //         },
 //         indicatorColor: Colors.amber,
@@ -36,135 +36,55 @@
 //               label: 'My Task',
 //             ),
 //           ),
-//           // NavigationDestination(
-//           //   icon: Badge(child: Icon(Icons.notifications_sharp)),
-//           //   label: 'Notifications',
-//           // ),
+//           NavigationDestination(
+//             icon: Text(""),
+//             // icon: Badge(
+//             //     child: Icon(Icons.notifications_sharp)),
+//             label: '',
+//           ),
 //           const NavigationDestination(
 //             icon: Badge(
 //               // label: Text('2'),
 //               child: Icon(Icons.person),
 //             ),
-//             label: 'My Profile',
+//             label: 'My  Profile',
 //           ),
 //         ],
 //       ),
 //       body: <Widget>[
-//         Padding(
-//           padding: const EdgeInsets.only(top: 50, left: 15, right: 15),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                 children: [
-//                   Container(
-//                     child: const Text(
-//                       "Dashboard",
-//                       style: TextStyle(
-//                         fontSize: 20,
-//                       ),
-//                     ),
-//                   ),
-//                   IconButton(
-//                       onPressed: () {
-//                         Navigator.push(context,
-//                             MaterialPageRoute(builder: (context) => Task()));
-//                       },
-//                       icon: const Text(
-//                         "Add Task",
-//                         style: TextStyle(fontSize: 20),
-//                       ))
-//                 ],
+//         /// Home page
+//         Card(
+//           shadowColor: Colors.transparent,
+//           margin: const EdgeInsets.all(8.0),
+//           child: SizedBox.expand(
+//             child: Center(
+//               child: Text(
+//                 'Home page',
+//                 style: theme.textTheme.titleLarge,
 //               ),
-//               const Column(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 crossAxisAlignment: CrossAxisAlignment.stretch,
-//                 children: [
-//                   SizedBox(
-//                     height: 50,
-//                   ),
-//                   Text(
-//                     "My Pending Task",
-//                     style: TextStyle(
-//                       fontSize: 20,
-//                     ),
-//                   ),
-//                   SizedBox(
-//                     height: 50,
-//                   ),
-//                   Text(
-//                     "My Complete Task",
-//                     style: TextStyle(
-//                       fontSize: 20,
-//                     ),
-//                   ),
-//                   SizedBox(
-//                     height: 50,
-//                   ),
-//                   Text(
-//                     "My OverDue Task",
-//                     style: TextStyle(
-//                       fontSize: 20,
-//                     ),
-//                   ),
-//                   SizedBox(
-//                     height: 50,
-//                   ),
-//                   Text(
-//                     "My Approval Task",
-//                     style: TextStyle(
-//                       fontSize: 20,
-//                     ),
-//                   ),
-//                   SizedBox(
-//                     height: 50,
-//                   ),
-//                   Text(
-//                     "My Rejected Task",
-//                     style: TextStyle(
-//                       fontSize: 20,
-//                     ),
-//                   )
-//                 ],
-//               )
-//             ],
+//             ),
 //           ),
 //         ),
-//
-//         /// Home page
-//         // Card(
-//         //   shadowColor: Colors.transparent,
-//         //   margin: const EdgeInsets.all(8.0),
-//         //   child: SizedBox.expand(
-//         //     child: Center(
-//         //       child: Text(
-//         //         'My Task',
-//         //         style: theme.textTheme.titleLarge,
-//         //       ),
-//         //     ),
-//         //   ),
-//         // ),
 //
 //         /// Notifications page
 //         const Padding(
 //           padding: EdgeInsets.all(8.0),
 //           child: Column(
 //             children: <Widget>[
-//               // Card(
-//               //   child: ListTile(
-//               //     leading: Icon(Icons.notifications_sharp),
-//               //     title: Text('Notification 1'),
-//               //     subtitle: Text('This is a notification'),
-//               //   ),
-//               // ),
-//               // Card(
-//               //   child: ListTile(
-//               //     leading: Icon(Icons.notifications_sharp),
-//               //     title: Text('Notification 2'),
-//               //     subtitle: Text('This is a notification'),
-//               //   ),
-//               // ),
+//               Card(
+//                 child: ListTile(
+//                   leading: Icon(Icons.notifications_sharp),
+//                   title: Text('Notification 1'),
+//                   subtitle: Text('This is a notification'),
+//                 ),
+//               ),
+//               Card(
+//                 child: ListTile(
+//                   leading: Icon(Icons.notifications_sharp),
+//                   title: Text('Notification 2'),
+//                   subtitle: Text('This is a notifica'),
+//                 ),
+//               ),
 //             ],
 //           ),
 //         ),
@@ -282,31 +202,34 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(top: 50, left: 15, right: 15),
+        padding: const EdgeInsets.only(top: 50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  child: const Text(
-                    "Dashboard",
-                    style: TextStyle(
-                      fontSize: 20,
+            Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: const Text(
+                      "Dashboard",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AddTask()));
-                    },
-                    icon: const Text(
-                      "Add Task",
-                      style: TextStyle(fontSize: 20),
-                    ))
-              ],
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => AddTask()));
+                      },
+                      icon: const Text(
+                        "Add Task",
+                        style: TextStyle(fontSize: 20),
+                      ))
+                ],
+              ),
             ),
             // ListView.builder(
             //   shrinkWrap: true,
@@ -360,80 +283,91 @@ class _HomePageState extends State<HomePage> {
             //     );
             //   },
             // ),
-            const Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  "My Pending Task",
-                  style: TextStyle(
-                    fontSize: 20,
+            Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(
+                    height: 50,
                   ),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  "My Complete Task",
-                  style: TextStyle(
-                    fontSize: 20,
+                  Text(
+                    "My Pending Task",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  "My OverDue Task",
-                  style: TextStyle(
-                    fontSize: 20,
+                  SizedBox(
+                    height: 50,
                   ),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  "My Approval Task",
-                  style: TextStyle(
-                    fontSize: 20,
+                  Text(
+                    "My Complete Task",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  "My Rejected Task",
-                  style: TextStyle(
-                    fontSize: 20,
+                  SizedBox(
+                    height: 50,
                   ),
-                )
-              ],
+                  Text(
+                    "My OverDue Task",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Text(
+                    "My Approval Task",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Text(
+                    "My Rejected Task",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  )
+                ],
+              ),
             ),
             Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const WorkPage()));
-                    },
-                    icon: const Icon(
-                      Icons.home,
-                      size: 30,
-                      // color: Colors.purpleAccent,
-                    )),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.person,
-                      size: 30,
-                    ))
-              ],
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20)),
+                color: Colors.teal[100],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const WorkPage()));
+                      },
+                      icon: const Icon(
+                        Icons.home,
+                        size: 40,
+                        // color: Colors.purpleAccent,
+                      )),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.person,
+                        size: 40,
+                      ))
+                ],
+              ),
             )
           ],
         ),

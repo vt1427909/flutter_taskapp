@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:task_aap/dashboard/work_page.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -10,6 +12,23 @@ class _MyPageState extends State<MyPage> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController commentController = TextEditingController();
+  DateTime? _selectedDate;
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate ?? DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2101),
+    );
+
+    if (pickedDate != null && pickedDate != _selectedDate) {
+      setState(() {
+        _selectedDate = pickedDate;
+        dateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +39,13 @@ class _MyPageState extends State<MyPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextFormField(
               controller: dateController,
+              readOnly: true,
+              onTap: () => _selectDate(context),
               decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(18),
@@ -92,7 +113,7 @@ class _MyPageState extends State<MyPage> {
                   labelText: 'Comment'),
             ),
             const SizedBox(height: 20),
-            Container(
+            SizedBox(
               height: 50,
               width: double.infinity,
               child: ElevatedButton(
@@ -106,7 +127,16 @@ class _MyPageState extends State<MyPage> {
                   String title = titleController.text;
                   String description = descriptionController.text;
                   String comment = commentController.text;
-
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WorkPage(),
+                          settings: RouteSettings(arguments: [
+                            date,
+                            title,
+                            description,
+                            comment,
+                          ])));
 // Perform actions with the data, for example, print them
                   print('Date: $date');
                   print('Title: $title');
@@ -132,9 +162,11 @@ class _MyPageState extends State<MyPage> {
                     constraints: const BoxConstraints(
                         maxWidth: double.infinity, minHeight: 50),
                     child: const Text(
-                      "Login",
+                      "Submit",
                       style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),

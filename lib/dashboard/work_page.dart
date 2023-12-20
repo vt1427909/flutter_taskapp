@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:task_aap/dashboard/homePage.dart';
 import 'package:task_aap/dashboard/mywork_page.dart';
 import 'package:task_aap/dashboard/new_work.dart';
 
@@ -10,22 +12,33 @@ class WorkPage extends StatefulWidget {
 }
 
 class _WorkPageState extends State<WorkPage> {
+  List<String> items = ['Date', 'Name', 'For View', 'Edit', 'Delete'];
+
   TextEditingController _textEditingController = TextEditingController();
   String _displayText = '';
 
-  void _updateText() {
+  void deleteItem(int index) {
     setState(() {
-      // Update the displayed text with the text from the controller.
-      _displayText = _textEditingController.text;
+      items.removeAt(index);
     });
   }
+
+  // void _updateText(int index) {
+  //   setState(() {
+  //     // Update the displayed text with the text from the controller.
+  //
+  //   });
+  // }
+
+  DateTime now = DateTime.now();
+  String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text("My Tasks"),
             GestureDetector(
@@ -36,63 +49,94 @@ class _WorkPageState extends State<WorkPage> {
                 child: const Text("Add Work"))
           ],
         )),
-        body: ListView.builder(
-            itemCount: 3,
-            itemBuilder: (context, int index) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const Text(
-                    "Date",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Work1()));
-                    },
-                    child: const Text(
-                      "Name",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  const Text(
-                    "For View",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  const Row(
+        body: Column(
+          children: [
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: items.length,
+                itemBuilder: (context, int index) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
+                      // ListTile(
+                      //   title: Text(
+                      //     'Current Date: $formattedDate',
+                      //     style: const TextStyle(fontSize: 20),
+                      //   ),
+                      // ),
                       Text(
-                        "Edit",
+                        formattedDate.toString(),
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),
-                      Icon(Icons.edit),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Work1()));
+                        },
+                        child: const Text(
+                          "Name",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      const Text(
+                        "ForView...",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+
+                      IconButton(
+                          onPressed: () {
+                            deleteItem(index);
+                          },
+                          icon: Icon(Icons.delete)),
                     ],
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      print("fgfg");
-                      // deleteItem(index);
-                    },
-                    child: const Text(
-                      "Delete",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                  );
+                }),
+            Spacer(),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20)),
+                color: Colors.teal[100],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                      },
+                      icon: const Icon(
+                        Icons.home,
+                        size: 40,
+                        //color: Colors.purpleAccent,
+                      )),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.person,
+                        size: 40,
+                      ))
                 ],
-              );
-            }));
+              ),
+            )
+          ],
+        ));
   }
 
 // void deleteItem(int index) {

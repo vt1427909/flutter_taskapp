@@ -194,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
       ],
       decoration: InputDecoration(
         labelText: "Pin",
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Icons.lock,
           color: Colors.grey,
         ),
@@ -223,8 +223,10 @@ class _LoginPageState extends State<LoginPage> {
         if (password!.isEmpty) {
           return 'Please Enter Password';
         } else if (!regex.hasMatch(password))
+          // ignore: curly_braces_in_flow_control_structures
           return 'Enter valid password';
         else
+          // ignore: curly_braces_in_flow_control_structures
           return null;
       },
       onSaved: (password) => _password = password!,
@@ -261,7 +263,7 @@ class _LoginPageState extends State<LoginPage> {
                   "Sign in to continue!",
                   style: TextStyle(fontSize: 20, color: Colors.grey.shade400),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 emailInput(),
@@ -285,7 +287,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                Container(
+                SizedBox(
                   height: 50,
                   width: double.infinity,
                   child: ElevatedButton(
