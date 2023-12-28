@@ -123,14 +123,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late String _emailID,
-      _password = "",
-      _email = "abc@gmail.com",
-      _pass = "Try.t.r.y@1";
+  String _username = '';
+  String _password = '';
+  List existingUsernames = ['user1', 'user2', 'user3'];
+
+  // late String _emailID,
+  //     _password = "",
+  //     _email = "abc@gmail.com",
+  //     _pass = "Try.t.r.y@1";
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
-
-  // get EmailValidator => "";
 
   void _toggle() {
     setState(() {
@@ -151,11 +153,11 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget emailInput() {
     return TextFormField(
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.text,
       decoration: InputDecoration(
         labelText: "Username",
         prefixIcon: const Icon(
-          Icons.email,
+          Icons.person_outline_outlined,
           color: Colors.grey,
         ),
         labelStyle: TextStyle(fontSize: 14, color: Colors.grey.shade400),
@@ -172,15 +174,27 @@ class _LoginPageState extends State<LoginPage> {
             )),
       ),
       validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter your email';
-        } else if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
-            .hasMatch(value)) {
-          return 'Please enter a valid email address';
+        if (value!.isEmpty) {
+          return 'Please enter a username';
+        } else if (existingUsernames.contains(value)) {
+          return 'Username already exists';
         }
+
         return null;
       },
-      onSaved: (email) => _emailID = email!,
+      onSaved: (value) {
+        _username = value!;
+      },
+      // validator: (value) {
+      //   if (value == null || value.isEmpty) {
+      //     return 'Please enter your Username';
+      //   } else if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+      //       .hasMatch(value)) {
+      //     return 'Please enter a valid Username';
+      //   }
+      //   return null;
+      // },
+      // onSaved: (email) => _emailID = email!,
       textInputAction: TextInputAction.next,
     );
   }
@@ -428,3 +442,97 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+//
+// import 'dashboard/homePage.dart';
+//
+// class User {
+//   String username;
+//   String pin;
+//
+//   User(this.username, this.pin);
+// }
+//
+// class LoginPage extends StatefulWidget {
+//   @override
+//   _LoginPageState createState() => _LoginPageState();
+// }
+//
+// class _LoginPageState extends State<LoginPage> {
+//   TextEditingController usernameController = TextEditingController();
+//   TextEditingController pinController = TextEditingController();
+//
+//   List<User> registeredUsers = [
+//     User("user1", "deepak"), // Sample user data (replace with actual data)
+//     User("user2", "1234"),
+//   ];
+//
+//   login() {
+//     String enteredUsername = usernameController.text;
+//     String enteredPin = pinController.text;
+//
+//     // Validate credentials
+//     User matchedUser = registeredUsers.firstWhere(
+//       (user) => user.username == enteredUsername && user.pin == enteredPin,
+//        orElse: () => ,
+//        // orElse: () => null,
+//     );
+//
+//     if (matchedUser != null) {
+//       Navigator.pushReplacement(
+//           context, MaterialPageRoute(builder: (context) => HomePage()));
+//       // Credentials are valid, proceed with further actions (e.g., navigate to another page)
+//       showSuccessMessage("Login successful");
+//     } else {
+//       // Show an error message for invalid credentials
+//       showErrorMessage("Invalid username or PIN");
+//     }
+//   }
+//
+//   void showSuccessMessage(String message) {
+//     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//       content: Text(message),
+//       duration: Duration(seconds: 2),
+//     ));
+//   }
+//
+//   void showErrorMessage(String message) {
+//     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//       content: Text(message),
+//       duration: Duration(seconds: 2),
+//     ));
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: Text('Login Page'),
+//         ),
+//         body: Padding(
+//           padding: const EdgeInsets.all(16.0),
+//           child: Column(
+//             children: [
+//               TextField(
+//                 controller: usernameController,
+//                 decoration: InputDecoration(labelText: 'Username'),
+//               ),
+//               TextField(
+//                 controller: pinController,
+//                 keyboardType: TextInputType.number,
+//                 decoration: InputDecoration(labelText: 'PIN'),
+//               ),
+//               SizedBox(height: 16),
+//               ElevatedButton(
+//                 onPressed: login,
+//                 child: Text('Login'),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

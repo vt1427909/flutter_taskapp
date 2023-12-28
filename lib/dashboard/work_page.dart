@@ -5,30 +5,29 @@ import 'package:task_aap/dashboard/mywork_page.dart';
 import 'package:task_aap/dashboard/new_work.dart';
 
 class WorkPage extends StatefulWidget {
-  const WorkPage({super.key});
+  String date;
+  String title;
+  String des;
+  String comment;
+
+  WorkPage(
+      {required this.date,
+      required this.title,
+      required this.des,
+      required this.comment});
 
   @override
   State<WorkPage> createState() => _WorkPageState();
 }
 
 class _WorkPageState extends State<WorkPage> {
-  List<String> items = ['Date', 'Name', 'For View', 'Edit', 'Delete'];
-
-  TextEditingController _textEditingController = TextEditingController();
-  String _displayText = '';
+  List<Info> items = [];
 
   void deleteItem(int index) {
     setState(() {
       items.removeAt(index);
     });
   }
-
-  // void _updateText(int index) {
-  //   setState(() {
-  //     // Update the displayed text with the text from the controller.
-  //
-  //   });
-  // }
 
   DateTime now = DateTime.now();
   String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
@@ -144,4 +143,13 @@ class _WorkPageState extends State<WorkPage> {
 //     data.removeAt(index);
 //   });
 // }
+}
+
+class Info {
+  String date;
+  String title;
+  String dis;
+  String comment;
+
+  Info(this.date, this.title, this.dis, this.comment);
 }

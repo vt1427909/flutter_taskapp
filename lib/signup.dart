@@ -14,6 +14,34 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _mobileController = TextEditingController();
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _pinController = TextEditingController();
+  List<User> registeredUsers = []; // Simple list to simulate a database
+
+  bool isUsernameUnique(String username) {
+    return !registeredUsers.any((user) => user.username == username);
+  }
+
+  void register() {
+    String enteredUsername = _usernameController.text;
+
+    // Check if the username is unique
+    if (!isUsernameUnique(enteredUsername)) {
+      // Show an error message for duplicate username
+      showErrorMessage("Username '$enteredUsername' is already taken");
+      return;
+    }
+
+    // Registration successful, add the user to the list (simulate database)
+    // registeredUsers.add(User(enteredUsername));
+
+    // Proceed with further actions, e.g., navigating to another page
+  }
+
+  void showErrorMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+      duration: Duration(seconds: 2),
+    ));
+  }
 
   bool _obscureText = true;
 
@@ -318,4 +346,14 @@ class _SignUpPageState extends State<SignUpPage> {
           context, MaterialPageRoute(builder: (context) => LoginPage()));
     }
   }
+}
+
+class User {
+  String username;
+  String name;
+  String mobile;
+  String pin;
+  String email;
+
+  User(this.username, this.name, this.email, this.mobile, this.pin);
 }

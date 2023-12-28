@@ -20,7 +20,7 @@ class _Work1State extends State<Work1> {
   }
 
   DateTime now = DateTime.now();
-  String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  String formattedDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {

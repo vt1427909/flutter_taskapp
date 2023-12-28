@@ -353,7 +353,12 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const WorkPage()));
+                                builder: (context) => WorkPage(
+                                      date: '',
+                                      title: '',
+                                      des: '',
+                                      comment: '',
+                                    )));
                       },
                       icon: const Icon(
                         Icons.home,

@@ -123,21 +123,95 @@ class _MyPageState extends State<MyPage> {
                   ),
                 ),
                 onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => AlertDialog(
+                      title: const Center(
+                        child: Text(
+                          "Are You Sure?",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      // content: const Text("Are you sure ?"),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              gradient: const LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [
+                                  Color(0xffff5f6d),
+                                  Color(0xffff5f6d),
+                                  Color(0xffffc371),
+                                ],
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(14),
+                            child: const Text(
+                              "CANCEL",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => WorkPage(
+                                          date: dateController.text,
+                                          title: titleController.text,
+                                          des: descriptionController.text,
+                                          comment: commentController.text,
+                                        )));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              gradient: const LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [
+                                  Color(0xffff5f6d),
+                                  Color(0xffff5f6d),
+                                  Color(0xffffc371),
+                                ],
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(14),
+                            child: const Text(
+                              "CONFIRM",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const WorkPage(),
+                  //         settings: RouteSettings(arguments: [
+                  //           date,
+                  //           title,
+                  //           description,
+                  //           comment,
+                  //         ])));
+// Perform actions with the data, for example, print them
                   String date = dateController.text;
                   String title = titleController.text;
                   String description = descriptionController.text;
                   String comment = commentController.text;
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WorkPage(),
-                          settings: RouteSettings(arguments: [
-                            date,
-                            title,
-                            description,
-                            comment,
-                          ])));
-// Perform actions with the data, for example, print them
                   print('Date: $date');
                   print('Title: $title');
                   print('Description: $description');

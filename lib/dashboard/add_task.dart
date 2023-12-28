@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:intl/intl.dart';
+import 'package:task_aap/dashboard/homePage.dart';
 
 class AddTask extends StatefulWidget {
   @override
@@ -12,6 +15,7 @@ class _AddTaskState extends State<AddTask> {
   final TextEditingController colorController = TextEditingController();
   final TextEditingController notesController = TextEditingController();
   final TextEditingController websiteController = TextEditingController();
+  Color mycolor = Colors.lightBlue;
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +30,44 @@ class _AddTaskState extends State<AddTask> {
             children: [
               TextFormField(
                 controller: dateController,
+                readOnly: true,
+                onTap: () async {
+                  await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2015),
+                    lastDate: DateTime(2025),
+                  ).then((selectedDate) {
+                    if (selectedDate != null) {
+                      dateController.text =
+                          DateFormat('dd-MM-yyyy').format(selectedDate);
+                    }
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter date.';
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(18),
-                      borderSide: BorderSide(
-                        color: Colors.grey.shade300,
-                      ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(18),
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade300,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.red,
-                        )),
-                    labelText: 'Date'),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        color: Colors.red,
+                      )),
+                  labelText: 'Date',
+                  // suffixIcon: IconButton(
+                  //   icon: Icon(Icons.calendar_today),
+                  //   onPressed: () => _selectDate(context),
+                  // ),
+                ),
               ),
               const SizedBox(
                 height: 10,
@@ -84,19 +113,85 @@ class _AddTaskState extends State<AddTask> {
               TextFormField(
                 controller: colorController,
                 decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(18),
-                      borderSide: BorderSide(
-                        color: Colors.grey.shade300,
-                      ),
+                  filled: true,
+                  fillColor: Colors.red,
+                  // icon: IconButton(
+                  //     onPressed: () {
+                  //       showDialog(
+                  //           context: context,
+                  //           builder: (BuildContext context) {
+                  //             return AlertDialog(
+                  //               title: Text('Pick a color!'),
+                  //               content: SingleChildScrollView(
+                  //                 child: ColorPicker(
+                  //                   pickerColor: mycolor, //default color
+                  //                   onColorChanged: (Color color) {
+                  //                     //on color picked
+                  //                     setState(() {
+                  //                       mycolor = color;
+                  //                     });
+                  //                   },
+                  //                 ),
+                  //               ),
+                  //               actions: <Widget>[
+                  //                 ElevatedButton(
+                  //                   child: const Text('DONE'),
+                  //                   onPressed: () {
+                  //                     Navigator.of(context)
+                  //                         .pop(); //dismiss the color picker
+                  //                   },
+                  //                 ),
+                  //               ],
+                  //             );
+                  //           });
+                  //     },
+                  //     icon: Icon(Icons.format_color_fill)),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(18),
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade300,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.red,
-                        )),
-                    labelText: 'Color'),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        color: Colors.red,
+                      )),
+                  labelText: 'Color',
+                  suffixIcon: IconButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Pick a color!'),
+                                content: SingleChildScrollView(
+                                  child: ColorPicker(
+                                    pickerColor: mycolor, //default color
+                                    onColorChanged: (Color color) {
+                                      //on color picked
+                                      setState(() {
+                                        mycolor = color;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  ElevatedButton(
+                                    child: const Text('DONE'),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(); //dismiss the color picker
+                                    },
+                                  ),
+                                ],
+                              );
+                            });
+                      },
+                      icon: Icon(Icons.format_color_fill)),
+                ),
               ),
+
               const SizedBox(
                 height: 10,
               ),
@@ -148,47 +243,121 @@ class _AddTaskState extends State<AddTask> {
                     ),
                   ),
                   onPressed: () {
-                    String name = nameController.text;
-                    String date = dateController.text;
-                    String Color = colorController.text;
-                    String Notes = notesController.text;
-                    String website = websiteController.text;
-                    String reson = resonController.text;
-
-                    if (name.isNotEmpty &&
-                        date.isNotEmpty &&
-                        Color.isNotEmpty &&
-                        Notes.isNotEmpty &&
-                        reson.isNotEmpty &&
-                        website.isNotEmpty) {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => HomePage(
-                      //         // userData: UserData(
-                      //         //     name: name,
-                      //         //     date: date,
-                      //         //     color: Color,
-                      //         //     notes: Notes,
-                      //         //     website: website,
-                      //         //     reson: reson),
-                      //         ),
-                      //   ),
-                      // );
-                    } else
-                      (e) {
-                        e.toString();
-                        // Show an error or handle the case when any field is empty
-                      };
-                    print('Date: ${dateController.text}');
-                    print('Name: ${nameController.text}');
-                    print('For: ${resonController.text}');
-                    print('Color: ${colorController.text}');
-                    print('Notes: ${notesController.text}');
-                    print('Website URL: ${websiteController.text}');
+                    showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        title: const Center(
+                          child: Text(
+                            "Are You Sure?",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        // content: const Text("Are you sure ?"),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                gradient: const LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [
+                                    Color(0xffff5f6d),
+                                    Color(0xffff5f6d),
+                                    Color(0xffffc371),
+                                  ],
+                                ),
+                              ),
+                              padding: const EdgeInsets.all(14),
+                              child: const Text(
+                                "CANCEL",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomePage()));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                gradient: const LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [
+                                    Color(0xffff5f6d),
+                                    Color(0xffff5f6d),
+                                    Color(0xffffc371),
+                                  ],
+                                ),
+                              ),
+                              padding: const EdgeInsets.all(14),
+                              child: const Text(
+                                "CONFIRM",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   },
+                  // onPressed: () {
+                  //   String name = nameController.text;
+                  //   String date = dateController.text;
+                  //   String Color = colorController.text;
+                  //   String Notes = notesController.text;
+                  //   String website = websiteController.text;
+                  //   String reson = resonController.text;
+                  //
+                  //   if (name.isNotEmpty &&
+                  //       date.isNotEmpty &&
+                  //       Color.isNotEmpty &&
+                  //       Notes.isNotEmpty &&
+                  //       reson.isNotEmpty &&
+                  //       website.isNotEmpty) {
+                  //     Navigator.push(context,
+                  //         MaterialPageRoute(builder: (context) => HomePage()));
+                  //     AlertDialog(
+                  //       title: Text('Welcome!'),
+                  //       content: Text('Are you sure'),
+                  //       actions: [
+                  //         ElevatedButton(
+                  //           onPressed: () {},
+                  //           child: Text('CANCEL'),
+                  //         ),
+                  //         ElevatedButton(
+                  //           onPressed: () {},
+                  //           child: Text('ACCEPT'),
+                  //         ),
+                  //       ],
+                  //     );
+                  //   } else
+                  //     (e) {
+                  //       e.toString();
+                  //       // Show an error or handle the case when any field is empty
+                  //     };
+                  //   print('Date: ${dateController.text}');
+                  //   print('Name: ${nameController.text}');
+                  //   print('For: ${resonController.text}');
+                  //   print('Color: ${colorController.text}');
+                  //   print('Notes: ${notesController.text}');
+                  //   print('Website URL: ${websiteController.text}');
+                  // },
                   // padding: const EdgeInsets.all(0),
-                  child: Ink(
+                  child: Container(
+                    alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
                       gradient: const LinearGradient(
@@ -201,16 +370,13 @@ class _AddTaskState extends State<AddTask> {
                         ],
                       ),
                     ),
-                    child: Container(
-                      alignment: Alignment.center,
-                      constraints: const BoxConstraints(
-                          maxWidth: double.infinity, minHeight: 50),
-                      child: const Text(
-                        "Summit",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
+                    constraints: const BoxConstraints(
+                        maxWidth: double.infinity, minHeight: 50),
+                    child: const Text(
+                      "Summit",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
